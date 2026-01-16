@@ -1,6 +1,26 @@
-# Welcome to your Expo app 👋
+# Workout Tracker 💪
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A React Native workout tracking app built with Expo.
+
+## 🔗 Live Preview
+
+View the project on GitHub: [https://github.com/marwoz01/workout-tracker](https://github.com/marwoz01/workout-tracker)
+
+## 📱 Features
+
+- Create custom workout routines
+- Track exercises with sets, reps, and weight
+- Rest timer between sets
+- Workout duration tracking
+- Volume and sets statistics
+- Dark theme UI
+
+## 🛠️ Tech Stack
+
+- React Native
+- Expo
+- TypeScript
+- React Context API
 
 ## Get started
 
@@ -24,6 +44,14 @@ In the output, you'll find options to open the app in a
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## 📂 Project Structure
+
+- `/app` - Application screens and routing
+- `/components` - Reusable UI components
+- `/context` - React Context for state management
+- `/types` - TypeScript type definitions
+- `/constants` - App constants and theme
 
 ## Get a fresh project
 
