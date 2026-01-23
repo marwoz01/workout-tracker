@@ -1,3 +1,9 @@
+/**
+ * models.ts - Główne typy danych aplikacji
+ * Definiuje strukturę ćwiczeń, treningów, rutyn, setów
+ */
+
+// Ćwiczenie (np. wyciskanie, przysiady)
 export type Exercise = {
   id: string;
   name: string;
@@ -8,6 +14,7 @@ export type Set = {
   weight: number;
   reps: number;
   rest: number;
+  note?: string;
 };
 
 export type WorkoutExercise = {
@@ -18,6 +25,7 @@ export type WorkoutExercise = {
 export type Workout = {
   id: string;
   exercises: WorkoutExercise[];
+  startTime: number; // timestamp rozpoczęcia treningu
 };
 
 export type RoutineSet = {

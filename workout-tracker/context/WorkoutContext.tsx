@@ -1,3 +1,9 @@
+/**
+ * WorkoutContext - Kontekst przechowujący stan treningu
+ * Zarządza: aktualnym treningiem, rutynami, wybranymi ćwiczeniami
+ * Dostępny w całej aplikacji za pomocą useWorkout()
+ */
+
 import React, { createContext, useContext, useState } from "react";
 import type {
   Set,
@@ -14,7 +20,9 @@ type WorkoutContextType = {
   startWorkout: () => void;
   addExercise: (exercise: WorkoutExercise) => void;
   addSet: (exerciseId: string, set: Omit<Set, "id">) => void;
+  updateSetNote: (exerciseId: string, setId: string, note: string) => void;
   finishWorkout: () => void;
+  discardWorkout: () => void;
   addRoutine: (routine: Routine) => void;
   deleteRoutine: (routineId: string) => void;
   startWorkoutFromRoutine: (routineId: string) => void;
@@ -28,13 +36,14 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
   const [workout, setWorkout] = useState<Workout | null>(null);
   const [routines, setRoutines] = useState<Routine[]>([]);
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(
-    null
+    null,
   );
 
   const startWorkout = () => {
     setWorkout({
       id: Date.now().toString(),
       exercises: [],
+      startTime: Date.now(),
     });
   };
 
@@ -43,7 +52,7 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
       if (!prev) return prev;
 
       const exists = prev.exercises.some(
-        (we) => we.exercise.id === exercise.exercise.id
+        (we) => we.exercise.id === exercise.exercise.id,
       );
       if (exists) return prev;
 
@@ -72,7 +81,32 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
                   },
                 ],
               }
-            : we
+            : we,
+        ),
+      };
+    });
+  };
+
+  const updateSetNote = (exerciseId: string, setId: string, note: string) => {
+    setWorkout((prev) => {
+      if (!prev) return prev;
+
+      return {
+        ...prev,
+        exercises: prev.exercises.map((we) =>
+          we.exercise.id === exerciseId
+            ? {
+                ...we,
+                sets: we.sets.map((s) =>
+                  s.id === setId
+                    ? {
+                        ...s,
+                        note,
+                      }
+                    : s,
+                ),
+              }
+            : we,
         ),
       };
     });
@@ -80,6 +114,10 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
 
   const finishWorkout = () => {
     console.log("Workout finished:", workout);
+    setWorkout(null);
+  };
+
+  const discardWorkout = () => {
     setWorkout(null);
   };
 
@@ -101,6 +139,7 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
         exercise: re.exercise,
         sets: [],
       })),
+      startTime: Date.now(),
     });
   };
 
@@ -121,7 +160,9 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
         startWorkout,
         addExercise,
         addSet,
+        updateSetNote,
         finishWorkout,
+        discardWorkout,
         addRoutine,
         deleteRoutine,
         startWorkoutFromRoutine,

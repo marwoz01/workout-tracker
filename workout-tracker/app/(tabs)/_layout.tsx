@@ -12,9 +12,33 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: "#3b82f6",
+        tabBarInactiveTintColor: "#666",
         headerShown: false,
         tabBarButton: HapticTab,
+        tabBarStyle: {
+          backgroundColor: "#0a0a0a",
+          borderTopWidth: 1,
+          borderTopColor: "#222",
+          height: 82,
+          paddingBottom: 12,
+          paddingTop: 10,
+          elevation: 0,
+          shadowOpacity: 0,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "700",
+          marginTop: 4,
+        },
+        tabBarItemStyle: {
+          paddingVertical: 4,
+          alignItems: "center",
+          justifyContent: "center",
+        },
+        tabBarIconStyle: {
+          marginBottom: -2,
+        },
       }}
     >
       <Tabs.Screen
@@ -28,11 +52,21 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
+        name="plans"
+        options={{
+          title: "Plany",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="list.bullet" color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
         name="history"
         options={{
-          title: "Historia",
+          title: "Profil",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="clock.fill" color={color} />
+            <IconSymbol size={28} name="person.fill" color={color} />
           ),
         }}
       />

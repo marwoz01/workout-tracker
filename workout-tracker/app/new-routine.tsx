@@ -16,15 +16,14 @@ import type { RoutineExercise } from "@/types/models";
 export default function NewRoutineScreen() {
   const [routineName, setRoutineName] = useState("");
   const [selectedExercises, setSelectedExercises] = useState<RoutineExercise[]>(
-    []
+    [],
   );
   const { addRoutine, selectedExercise, clearSelectedExercise } = useWorkout();
 
-  // Handle exercise selection from add-exercise screen
   useEffect(() => {
     if (selectedExercise) {
       const exists = selectedExercises.some(
-        (se) => se.exercise.id === selectedExercise.id
+        (se) => se.exercise.id === selectedExercise.id,
       );
       if (exists) {
         clearSelectedExercise();
@@ -57,8 +56,8 @@ export default function NewRoutineScreen() {
                 },
               ],
             }
-          : ex
-      )
+          : ex,
+      ),
     );
   };
 
@@ -66,7 +65,7 @@ export default function NewRoutineScreen() {
     exerciseId: string,
     setId: string,
     field: "weight" | "reps",
-    value: number
+    value: number,
   ) => {
     setSelectedExercises((prev) =>
       prev.map((ex) =>
@@ -74,11 +73,11 @@ export default function NewRoutineScreen() {
           ? {
               ...ex,
               sets: ex.sets.map((s) =>
-                s.id === setId ? { ...s, [field]: value } : s
+                s.id === setId ? { ...s, [field]: value } : s,
               ),
             }
-          : ex
-      )
+          : ex,
+      ),
     );
   };
 
@@ -101,9 +100,8 @@ export default function NewRoutineScreen() {
       return;
     }
 
-    // Check if all exercises have at least one set
     const incompleteExercises = selectedExercises.filter(
-      (ex) => ex.sets.length === 0
+      (ex) => ex.sets.length === 0,
     );
     if (incompleteExercises.length > 0) {
       Alert.alert("Please add at least one set for each exercise");
@@ -200,7 +198,7 @@ export default function NewRoutineScreen() {
                                 exercise.id,
                                 set.id,
                                 "weight",
-                                set.weight - 5
+                                set.weight - 5,
                               )
                             }
                           >
@@ -213,7 +211,7 @@ export default function NewRoutineScreen() {
                                 exercise.id,
                                 set.id,
                                 "weight",
-                                set.weight + 5
+                                set.weight + 5,
                               )
                             }
                           >
@@ -234,7 +232,7 @@ export default function NewRoutineScreen() {
                                 exercise.id,
                                 set.id,
                                 "reps",
-                                set.reps - 1
+                                set.reps - 1,
                               )
                             }
                           >
@@ -247,7 +245,7 @@ export default function NewRoutineScreen() {
                                 exercise.id,
                                 set.id,
                                 "reps",
-                                set.reps + 1
+                                set.reps + 1,
                               )
                             }
                           >

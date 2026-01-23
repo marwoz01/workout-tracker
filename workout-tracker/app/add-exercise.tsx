@@ -1,3 +1,8 @@
+/**
+ * Ekran dodawania ćwiczenia do treningu
+ * Wyświetla listę wszystkich dostępnych ćwiczeń, pozwala na ich wyszukiwanie i wybór
+ */
+
 import React, { useState } from "react";
 import {
   View,
@@ -7,6 +12,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useWorkout } from "@/context/WorkoutContext";
 import type { Exercise } from "@/types/models";
@@ -24,7 +30,7 @@ export default function AddExerciseScreen() {
   const { selectExercise } = useWorkout();
 
   const filteredExercises = MOCK_EXERCISES.filter((ex) =>
-    ex.name.toLowerCase().includes(searchText.toLowerCase())
+    ex.name.toLowerCase().includes(searchText.toLowerCase()),
   );
 
   const handleSelectExercise = (exercise: Exercise) => {
@@ -64,14 +70,14 @@ export default function AddExerciseScreen() {
                 onPress={() => handleSelectExercise(exercise)}
               >
                 <View style={styles.exerciseIconPlaceholder}>
-                  <Text style={styles.exerciseIcon}>💪</Text>
+                  <Ionicons name="barbell" size={20} color="#3b82f6" />
                 </View>
                 <View style={styles.exerciseInfo}>
                   <Text style={styles.exerciseName}>{exercise.name}</Text>
                   <Text style={styles.exerciseCategory}>Full Body</Text>
                 </View>
                 <View style={styles.exerciseAdd}>
-                  <Text style={styles.addIcon}>⊕</Text>
+                  <Ionicons name="add-circle" size={24} color="#3b82f6" />
                 </View>
               </Pressable>
             ))}
